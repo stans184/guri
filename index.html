@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+  <title>댕댕로드 : 7박 8일 강원 일주 (iOS 27 에디션)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ios-bg: #F2F2F7;
+      --ios-card: rgba(255, 255, 255, 0.78);
+      --ios-border: rgba(255, 255, 255, 0.6);
+      --ios-tint: #007AFF;
+      --ios-amber: #FF9500;
+      --ios-green: #34C759;
+      --ios-pink: #FF2D55;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Pretendard", system-ui, sans-serif;
+      background-color: var(--ios-bg);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(255, 149, 0, 0.12) 0px, transparent 50%),
+        radial-gradient(at 90% 20%, rgba(0, 122, 255, 0.10) 0px, transparent 50%),
+        radial-gradient(at 50% 90%, rgba(52, 199, 89, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* iOS 27 Fluid Frosted Squircle Cards */
+    .ios-card {
+      background: var(--ios-card);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--ios-border);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      border-radius: 28px;
+    }
+
+    .ios-dynamic-island {
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 40px;
+    }
+
+    .ios-segmented {
+      background: rgba(118, 118, 128, 0.12);
+      backdrop-filter: blur(20px);
+      border-radius: 18px;
+      padding: 3px;
+    }
+
+    .ios-badge {
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* Smooth iOS Scrollbar */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .spring-press {
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease;
+    }
+    .spring-press:active {
+      transform: scale(0.96);
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body class="text-slate-900 min-h-screen flex flex-col pb-28 pt-2 sm:pb-16 selection:bg-amber-500/20">
+
+  <!-- iOS 27 Dynamic Island Floating Live Island -->
+  <div class="sticky top-2 z-50 px-4 max-w-xl mx-auto w-full">
+    <div class="ios-dynamic-island text-white py-2 px-4 flex items-center justify-between transition-all duration-300 hover:scale-[1.01] cursor-pointer" onclick="toggleIslandDetails()">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <div class="flex flex-col">
+          <span class="text-[10px] text-white/60 tracking-wider font-semibold uppercase flex items-center gap-1">
+            <i class="fa-solid fa-satellite-dish text-emerald-400"></i> iOS 27 Live Activity
+          </span>
+          <span class="text-xs font-bold tracking-tight text-white flex items-center gap-1">
+            수원발 강원 일주 🐾 <span class="text-amber-400 text-[11px]">7박 8일 로드맵</span>
+          </span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] bg-white/15 px-2.5 py-1 rounded-full text-white/90 font-bold border border-white/10">
+          성인2+견1 🚐
+        </span>
+        <button onclick="event.stopPropagation(); openGitHubGuideModal();" class="text-[10px] bg-indigo-500 hover:bg-indigo-600 px-2.5 py-1 rounded-full text-white font-bold transition spring-press shadow-sm flex items-center gap-1">
+          <i class="fa-brands fa-github"></i> GitHub배포
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-grow max-w-4xl mx-auto px-4 sm:px-6 pt-4 space-y-6 w-full">
+
+    <!-- iOS Header Title Bar -->
+    <header class="flex items-center justify-between py-2 px-1">
+      <div>
+        <p class="text-xs font-bold text-indigo-600 tracking-wide uppercase">Couples & Pet Travel Report</p>
+        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">강원 힐링 로드트립 🌿</h1>
+        <p class="text-xs text-slate-500 mt-0.5">나 🧑‍💻 & 아내 👩‍🦰 & 우리 댕댕이 🐶의 완벽한 7박 8일</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="scrollToSection('wifeCommentSection')" class="spring-press flex items-center gap-1.5 px-3 py-1.5 bg-rose-500/10 text-rose-600 border border-rose-200/60 rounded-2xl text-xs font-bold">
+          <i class="fa-solid fa-comment-heart"></i>
+          <span>아내 코멘트</span>
+          <span id="commentHeaderBadge" class="bg-rose-500 text-white rounded-full w-4 h-4 text-[9px] flex items-center justify-center font-bold">2</span>
+        </button>
+        <button onclick="copyKakaoFormat()" class="spring-press flex items-center gap-1 px-3 py-1.5 bg-amber-400 text-slate-900 rounded-2xl text-xs font-bold shadow-sm">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>카톡요약</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- SECTION 1: 결론만 명쾌하게 제시 (iOS 27 Card) -->
+    <section id="conclusion" class="ios-card p-6 relative overflow-hidden">
+      <div class="absolute -right-6 -bottom-6 text-9xl text-amber-500/10 pointer-events-none">
+        <i class="fa-solid fa-paw"></i>
+      </div>
+      <div class="space-y-3 relative z-10">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-700 text-xs font-bold border border-amber-500/20">
+          <i class="fa-solid fa-sparkles"></i> 결론부터 딱 정해드릴게요!
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+          "수원 ➡️ 춘천 ➡️ 고성·속초 ➡️ 양양·강릉 ➡️ 평창 ➡️ 원주 ➡️ 수원"<br>
+          <span class="text-indigo-600 underline decoration-indigo-300 decoration-wavy">초단거리 1.5시간 분할 오션 & 마운틴 루프</span>가 최고입니다.
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          반려견의 차멀미와 캠핑카 운전 피로를 원천 차단하기 위해 <strong>구간별 이동거리를 1시간 30분 이내</strong>로 쪼갰습니다. 캠핑카 전용 오토캠핑장(4박)과 낭만 오션뷰 차박(3박)을 절묘하게 믹스해 전력 충전과 청수 보충, 그리고 감성을 동시에 잡았습니다.
+        </p>
+
+        <!-- iOS 27 Grid Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
+          <div class="p-3 bg-white/70 rounded-2xl border border-white/60 shadow-sm text-center">
+            <span class="text-[10px] text-slate-400 font-bold block">총 여정</span>
+            <span class="text-base font-black text-slate-800">7박 8일</span>
+          </div>
+          <div class="p-3 bg-white/70 rounded-2xl border border-white/60 shadow-sm text-center">
+            <span class="text-[10px] text-slate-400 font-bold block">수원 기점 주행</span>
+            <span class="text-base font-black text-indigo-600">약 680 km</span>
+          </div>
+          <div class="p-3 bg-white/70 rounded-2xl border border-white/60 shadow-sm text-center">
+            <span class="text-[10px] text-slate-400 font-bold block">반려견 동반율</span>
+            <span class="text-base font-black text-emerald-600">100% OK</span>
+          </div>
+          <div class="p-3 bg-white/70 rounded-2xl border border-white/60 shadow-sm text-center">
+            <span class="text-[10px] text-slate-400 font-bold block">예상 총 경비</span>
+            <span class="text-base font-black text-rose-500">약 327만</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: 아내와 함께하는 실시간 의견 & 먹킷리스트 코멘트 시스템 -->
+    <section id="wifeCommentSection" class="ios-card p-5 sm:p-6 space-y-4 border-2 border-rose-300/40">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200/60">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-2xl bg-rose-500 text-white flex items-center justify-center text-sm shadow-md shadow-rose-500/20">
+            <i class="fa-solid fa-heart"></i>
+          </span>
+          <div>
+            <h3 class="text-base font-extrabold text-slate-900 tracking-tight">부부 실시간 코멘트 & 먹킷리스트 💌</h3>
+            <p class="text-[11px] text-slate-500">아내와 남편이 가고 싶은 곳에 의견을 달고 카톡으로 바로 공유해요!</p>
+          </div>
+        </div>
+        <button onclick="shareCommentsViaKakao()" class="spring-press px-2.5 py-1 bg-yellow-400 hover:bg-yellow-500 text-slate-900 text-xs font-bold rounded-xl flex items-center gap-1 shadow-sm">
+          <i class="fa-solid fa-comment"></i> 의견 카톡 전송
+        </button>
+      </div>
+
+      <!-- Comments Stream List -->
+      <div id="commentsContainer" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+        <!-- Javascript renders active comments here -->
+      </div>
+
+      <!-- Add New Comment Form (iOS Native Message Input Look) -->
+      <div class="bg-white/80 p-3.5 rounded-2xl border border-white shadow-inner space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1 text-xs">
+            <span class="text-slate-400 font-medium text-[11px]">작성자:</span>
+            <button type="button" onclick="selectAuthor('wife')" id="btnAuthorWife" class="px-2.5 py-1 rounded-xl text-xs font-bold bg-rose-500 text-white transition spring-press">
+              👩‍🦰 아내
+            </button>
+            <button type="button" onclick="selectAuthor('husband')" id="btnAuthorHusband" class="px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 transition spring-press">
+              🧑‍💻 남편
+            </button>
+            <button type="button" onclick="selectAuthor('pet')" id="btnAuthorPet" class="px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 transition spring-press">
+              🐶 댕댕이
+            </button>
+          </div>
+
+          <div class="flex items-center gap-1">
+            <span class="text-slate-400 font-medium text-[11px]">대상:</span>
+            <select id="commentDaySelect" class="text-xs bg-slate-100 border border-slate-200 rounded-xl px-2 py-1 font-semibold text-slate-700 outline-none">
+              <option value="전체">전체 일정 총평</option>
+              <option value="1일차 춘천">1일차 춘천 (닭갈비/강아지숲)</option>
+              <option value="2일차 고성">2일차 고성 (아야진/막국수)</option>
+              <option value="3일차 속초">3일차 속초 (영랑호/조선소)</option>
+              <option value="4일차 양양">4일차 양양 (서피비치/수제버거)</option>
+              <option value="5일차 강릉">5일차 강릉 (순두부/안목커피)</option>
+              <option value="6일차 평창">6일차 평창 (하늘목장/한우)</option>
+              <option value="7~8일차 원주">7~8일차 원주 (절벽카페)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <input type="text" id="commentInputText" placeholder="예: 여보 6일차 평창한우는 진짜 꼭 먹자! 댕댕이 간식도 챙기고 ❤️" class="flex-grow text-xs bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-rose-400">
+          <button onclick="postComment()" class="bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2 text-xs font-bold spring-press shadow-sm flex items-center justify-center">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 7박 8일 상세 일정 (iOS Segmented Switcher) -->
+    <section id="itinerary" class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-black text-slate-900 tracking-tight">7박 8일 인터랙티브 코스표</h3>
+          <p class="text-xs text-slate-500">인스타그램 핫플 & 애견 동반 검증 맛집</p>
+        </div>
+      </div>
+
+      <!-- iOS Segmented Filter -->
+      <div class="ios-segmented flex overflow-x-auto gap-1 text-xs">
+        <button onclick="switchDay('all')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-bold text-center transition bg-white text-slate-900 shadow-sm" data-day="all">전체</button>
+        <button onclick="switchDay('d1')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d1">1일</button>
+        <button onclick="switchDay('d2')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d2">2일</button>
+        <button onclick="switchDay('d3')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d3">3일</button>
+        <button onclick="switchDay('d4')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d4">4일</button>
+        <button onclick="switchDay('d5')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d5">5일</button>
+        <button onclick="switchDay('d6')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d6">6일</button>
+        <button onclick="switchDay('d78')" class="day-tab flex-1 py-1.5 px-3 rounded-[15px] font-medium text-slate-600 hover:text-slate-900 transition" data-day="d78">7-8일</button>
+      </div>
+
+      <!-- Schedule Cards Container -->
+      <div class="space-y-4" id="scheduleCards">
+
+        <!-- DAY 1: 수원 -> 춘천 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d1">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-amber-500 text-white font-black text-xs flex items-center justify-center shadow">D1</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">수원 ➡️ 춘천 호반 낭만 여행</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>수원 출발 → 춘천 (1시간 40분 / 115km)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-amber-100 text-amber-800 px-2 py-0.5">캠핑장 1박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">토담숯불닭갈비 & 어반그린</p>
+              <p class="text-slate-500 text-[11px]">야외정원 테라스 반려견 동반 완비! 의암호 물멍 뷰 잔디 카페.</p>
+              <div class="pt-1 flex gap-1.5">
+                <a href="https://map.naver.com/v5/search/%ED%86%A0%EB%8B%B4%EC%85%AF%EB%B6%88%EB%8B%AD%EA%B0%88%EB%Bi" target="_blank" class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200 font-bold">네이버지도</a>
+                <a href="https://map.kakao.com/link/search/%ED%86%A0%EB%8B%B4%EC%85%AF%EB%B6%88%EB%8B%AD%EA%B0%88%EB%Bi" target="_blank" class="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-200 font-bold">카카오맵</a>
+              </div>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">국내 최대 '강아지숲'</p>
+              <p class="text-slate-500 text-[11px]">대형 잔디운동장, 자작나무 숲길, 반려견 멍푸치노 라운지.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">춘천 어반힐링 / 사암리 캠핑존</p>
+              <p class="text-slate-500 text-[11px]">220V 전기 훅업 완비, 여유로운 샤워와 첫날 충전 완료.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 2: 춘천 -> 고성 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d2">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-cyan-500 text-white font-black text-xs flex items-center justify-center shadow">D2</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">춘천 ➡️ 고성 에메랄드 동해바다</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>춘천 → 인제 미시령 → 고성 (1시간 30분 / 95km)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-cyan-100 text-cyan-800 px-2 py-0.5">오션뷰 차박 1박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">동루골막국수 & 온더버튼</p>
+              <p class="text-slate-500 text-[11px]">평상 야외석 반려견 동반 가능. 바다 1초 컷 문암해변 카페.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">아야진 해변 & 무지개도로</p>
+              <p class="text-slate-500 text-[11px]">물 맑은 백사장과 알록달록 무지개 포토존에서 견생샷 필수!</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">고성 백도해변 오션뷰 1열 차박</p>
+              <p class="text-slate-500 text-[11px]">트렁크 열면 바다가 발밑에! 파도 소리 자장가 삼는 힐링.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 3: 고성 -> 속초 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d3">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-blue-500 text-white font-black text-xs flex items-center justify-center shadow">D3</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">속초 미식 탐방 ➡️ 영랑호 수변 데크</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>고성 → 속초 (25분 / 18km 초단거리)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-blue-100 text-blue-800 px-2 py-0.5">캠핑카 자유정박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">칠성조선소 & 중앙시장 포장</p>
+              <p class="text-slate-500 text-[11px]">레트로 북카페 칠성조선소, 만석닭강정/물회 캠핑카 만찬!</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">영랑호 호수공원 데크길</p>
+              <p class="text-slate-500 text-[11px]">설악산 울산바위가 수면에 비치는 절경 둘레길, 야자매트 산책.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">설악해맞이공원 인근</p>
+              <p class="text-slate-500 text-[11px]">쾌적한 주차공간, 밤바다 산책 후 프라이빗 디너 즐기기.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 4: 속초 -> 양양 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-teal-500 text-white font-black text-xs flex items-center justify-center shadow">D4</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">양양 힙플레이스 ➡️ 서피비치 & 버거</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>속초 → 양양 인구 (30분 / 26km)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-teal-100 text-teal-800 px-2 py-0.5">솔밭캠핑장 1박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">파머스키친 & 싱글핀</p>
+              <p class="text-slate-500 text-[11px]">인생 수제버거(야외 테라스 애견동반), 저녁 피맥 감성 충만.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">서피비치 & 멍비치 구역</p>
+              <p class="text-slate-500 text-[11px]">이국적 방갈로와 야자수, 고운 모래밭에서 모래찜질과 뜀박질.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">양양 지경국민여가캠핑장</p>
+              <p class="text-slate-500 text-[11px]">울창한 소나무 해송 숲, 220V 훅업 완충 및 시원한 그늘막.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 5: 양양 -> 강릉 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-indigo-500 text-white font-black text-xs flex items-center justify-center shadow">D5</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">강릉 미식 절정 ➡️ 초당순두부 & 커피거리</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>양양 → 강릉 경포/안목 (40분 / 38km)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-indigo-100 text-indigo-800 px-2 py-0.5">사천진 차박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">고씨네동해막국수 & 갤러리밥스</p>
+              <p class="text-slate-500 text-[11px]"><strong>반려견 전용 프라이빗 룸</strong> 완비! 초당옥수수커피 테이크아웃.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">보사노바 4층 펫 라운지</p>
+              <p class="text-slate-500 text-[11px]">안목 커피거리의 명소! 강아지 전용 실내존과 바다 파노라마.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">강릉 사천진 해안</p>
+              <p class="text-slate-500 text-[11px]">엄지네 꼬막비빔밥 포장 + 강릉 수제맥주로 어닝 밑 낭만 만찬.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 6: 강릉 -> 평창 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d6">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-purple-500 text-white font-black text-xs flex items-center justify-center shadow">D6</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">시원한 알프스 ➡️ 대관령 하늘목장 & 한우</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>강릉 → 평창 대관령 (35분 / 32km 고원 드라이브)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-purple-100 text-purple-800 px-2 py-0.5">솔섬캠핑장 1박</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">평창축협 대관령한우 그리들구이</p>
+              <p class="text-slate-500 text-[11px]">1++ 평창 한우를 직접 사서 캠핑카 그리들에 굽는 초호화 디너.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">대관령 하늘목장 (동반 가능!)</p>
+              <p class="text-slate-500 text-[11px]">반려견과 트랙터 마차 탑승 허용! 탁 트인 바람개비 언덕 산책.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 캠핑카 스팟</span>
+              <p class="font-bold text-slate-800">평창 솔섬오토캠핑장</p>
+              <p class="text-slate-500 text-[11px]">해발 700m 청량한 공기, 오폐수 덤프 스테이션 완비, 별밤 감상.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 7 & 8: 평창 -> 원주 -> 수원 -->
+        <div class="day-card ios-card p-5 space-y-3" data-day-group="d78">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-slate-900 text-white font-black text-xs flex items-center justify-center shadow">D7-8</span>
+              <div>
+                <h4 class="font-extrabold text-sm sm:text-base text-slate-900">기암절벽 카페 ➡️ 원주 스톤크릭 & 귀환</h4>
+                <p class="text-[11px] text-slate-400"><i class="fa-solid fa-route mr-1"></i>평창 → 원주 (50분) → 수원 (1시간 15분 / 150km)</p>
+              </div>
+            </div>
+            <span class="ios-badge bg-slate-200 text-slate-800 px-2 py-0.5">안전 귀환</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-rose-600 flex items-center gap-1"><i class="fa-solid fa-utensils"></i> 엄선 맛집 & 카페</span>
+              <p class="font-bold text-slate-800">원주 스톤크릭(Stone Creek)</p>
+              <p class="text-slate-500 text-[11px]">판대아이스파크 거대한 절벽 앞 넓은 잔디마당, 인생 사진 성지.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-paw"></i> 댕댕이 핫플레이스</span>
+              <p class="font-bold text-slate-800">치악산 둘레길 수변로</p>
+              <p class="text-slate-500 text-[11px]">계곡 물소리 들으며 평탄한 숲길 걷기, 무리 없는 마지막 힐링.</p>
+            </div>
+            <div class="p-3 bg-white/60 rounded-2xl border border-white/80 space-y-1">
+              <span class="font-bold text-indigo-600 flex items-center gap-1"><i class="fa-solid fa-caravan"></i> 8일차 반납</span>
+              <p class="font-bold text-slate-800">수원 안전 도착 (영동고속도로)</p>
+              <p class="text-slate-500 text-[11px]">1시간 15분 만에 수원 도착, 오후 여유롭게 캠핑카 정리 후 반납.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: 스마트 인터랙티브 예산 시뮬레이터 -->
+    <section id="cost" class="ios-card p-6 space-y-5">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-black text-slate-900 tracking-tight">예산 시뮬레이터 🧮</h3>
+          <p class="text-xs text-slate-500">슬라이더를 조절하면 총 경비가 즉시 계산됩니다.</p>
+        </div>
+        <span class="ios-badge bg-rose-100 text-rose-700 px-2.5 py-1">실시간 합산</span>
+      </div>
+
+      <!-- Live Calculation Card -->
+      <div class="p-4 bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="text-[11px] text-white/60 font-semibold block">최종 예상 총 경비</span>
+          <div class="flex items-baseline gap-1">
+            <span id="calculatedTotal" class="text-3xl sm:text-4xl font-black text-amber-300">3,275,000</span>
+            <span class="text-sm font-bold text-white/80">원</span>
+          </div>
+        </div>
+        <div class="flex gap-2 text-center text-xs">
+          <div class="bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10">
+            <span class="block text-[10px] text-white/60">캠핑카</span>
+            <span id="subVanCost" class="font-bold text-white">195만</span>
+          </div>
+          <div class="bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10">
+            <span class="block text-[10px] text-white/60">캠핑장</span>
+            <span id="subCampCost" class="font-bold text-white">22만</span>
+          </div>
+          <div class="bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10">
+            <span class="block text-[10px] text-white/60">식비</span>
+            <span id="subFoodCost" class="font-bold text-white">68만</span>
+          </div>
+          <div class="bg-white/10 px-2.5 py-1.5 rounded-xl border border-white/10">
+            <span class="block text-[10px] text-white/60">유류/기타</span>
+            <span class="font-bold text-white">42.5만</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1 text-xs">
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-700 block">차량 등급 선택</label>
+          <div class="grid grid-cols-2 gap-1.5">
+            <button type="button" onclick="setVanType('standard')" id="btnVanStd" class="p-2 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 font-bold text-indigo-900 text-center transition">
+              스타리아/봉고<span class="block text-[10px] text-slate-400">195만/7박</span>
+            </button>
+            <button type="button" onclick="setVanType('luxury')" id="btnVanLux" class="p-2 rounded-xl border border-slate-200 bg-white font-medium text-slate-600 text-center hover:bg-slate-50 transition">
+              쏠라티/마스터<span class="block text-[10px] text-slate-400">235만/7박</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex justify-between font-bold text-slate-700">
+            <span>유료 캠핑장</span>
+            <span id="labelCampNights" class="text-indigo-600">4박 (노지 3박)</span>
+          </div>
+          <input type="range" id="inputCampNights" min="0" max="7" value="4" oninput="updateBudgetCalc()" class="w-full accent-indigo-600 cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-400">
+            <span>0박(올차박)</span>
+            <span>4박(추천)</span>
+            <span>7박(올캠핑장)</span>
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-700 block">식비 플랜</label>
+          <select id="selectFoodPlan" onchange="updateBudgetCalc()" class="w-full p-2.5 rounded-xl border border-slate-200 bg-white font-medium outline-none text-xs">
+            <option value="economy">알뜰형 (요리 60% + 맛집 40%) - 48만</option>
+            <option value="standard" selected>스탠다드 (맛집+시장+한우 1회) - 68만</option>
+            <option value="premium">미식 럭셔리 (매끼 맛집+한우 2회) - 95만</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 댕댕이 짐 챙기기 체크리스트 -->
+    <section id="checklist" class="ios-card p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-black text-slate-900 tracking-tight">반려견 캠핑카 필수 준비물</h3>
+          <p class="text-xs text-slate-500">터치하면 진행률이 자동 저장됩니다.</p>
+        </div>
+        <span id="checklistCount" class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-xl">0 / 8 완료</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs" id="checklistContainer">
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">평소 사료 & 간식</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">접이식 물그릇</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">카시트 / 안전벨트</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">바다용 펫 타월</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">배변패드 & 탈취제</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">야외 롱 리드줄</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">진드기 기피제</span>
+        </label>
+        <label class="flex items-center gap-2 p-2 bg-white/70 rounded-xl border border-white cursor-pointer spring-press">
+          <input type="checkbox" onchange="handleChecklistChange()" class="chk-item rounded text-indigo-600 w-4 h-4">
+          <span class="chk-text">예방접종 증명서</span>
+        </label>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- iOS 27 Native Action Bar (Bottom Dock) -->
+  <nav class="fixed bottom-3 inset-x-0 mx-auto max-w-md w-[92%] z-40 bg-white/80 backdrop-blur-2xl border border-white/60 py-2 px-3 rounded-full shadow-2xl flex justify-around items-center">
+    <button onclick="scrollToSection('conclusion')" class="spring-press flex flex-col items-center text-slate-500 hover:text-indigo-600">
+      <i class="fa-solid fa-compass text-base"></i>
+      <span class="text-[9px] mt-0.5 font-bold">요약</span>
+    </button>
+    <button onclick="scrollToSection('itinerary')" class="spring-press flex flex-col items-center text-slate-500 hover:text-indigo-600">
+      <i class="fa-solid fa-map-location-dot text-base"></i>
+      <span class="text-[9px] mt-0.5 font-bold">코스</span>
+    </button>
+    <button onclick="scrollToSection('wifeCommentSection')" class="spring-press flex flex-col items-center text-rose-500 font-bold relative">
+      <i class="fa-solid fa-comment-dots text-base"></i>
+      <span class="text-[9px] mt-0.5">아내의견</span>
+      <span id="navCommentDot" class="absolute -top-1 right-2 w-2 h-2 bg-rose-500 rounded-full animate-ping"></span>
+    </button>
+    <button onclick="scrollToSection('cost')" class="spring-press flex flex-col items-center text-slate-500 hover:text-indigo-600">
+      <i class="fa-solid fa-calculator text-base"></i>
+      <span class="text-[9px] mt-0.5 font-bold">예산</span>
+    </button>
+    <button onclick="openGitHubGuideModal()" class="spring-press flex flex-col items-center text-indigo-600 font-bold">
+      <i class="fa-brands fa-github text-base"></i>
+      <span class="text-[9px] mt-0.5">GitHub</span>
+    </button>
+  </nav>
+
+  <!-- Toast Notification Pill -->
+  <div id="toast" class="fixed top-16 inset-x-0 mx-auto w-fit z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900/90 backdrop-blur-md text-white text-xs px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/20">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg">복사되었습니다!</span>
+  </div>
+
+  <!-- GitHub Pages 배포 가이드 모달 (iOS Action Sheet Style) -->
+  <div id="gitHubModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="ios-card bg-white/95 max-w-md w-full p-6 space-y-4 border border-white shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <i class="fa-brands fa-github text-2xl text-slate-900"></i>
+          <div>
+            <h4 class="font-black text-slate-900 text-sm">GitHub Pages로 30초 만에 앱 만들기</h4>
+            <p class="text-[10px] text-slate-400">아이폰에서 링크 하나로 깨짐 없이 100% 작동</p>
+          </div>
+        </div>
+        <button onclick="closeGitHubGuideModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs leading-relaxed text-slate-600">
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1">
+          <span class="font-bold text-slate-800 flex items-center gap-1.5">
+            <span class="w-4 h-4 rounded-full bg-slate-900 text-white text-[10px] flex items-center justify-center">1</span>
+            GitHub에 새 저장소(Repo) 만들기
+          </span>
+          <p class="text-[11px] pl-5">GitHub 로그인 후 <strong>New Repository</strong> 클릭 (이름 예: <code class="bg-slate-200 px-1 rounded">gangwon-trip</code>, Public 설정).</p>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-1">
+          <span class="font-bold text-slate-800 flex items-center gap-1.5">
+            <span class="w-4 h-4 rounded-full bg-slate-900 text-white text-[10px] flex items-center justify-center">2</span>
+            파일 이름을 `index.html`로 업로드
+          </span>
+          <p class="text-[11px] pl-5">지금 다운로드한 이 HTML 파일을 <strong>index.html</strong>로 이름을 바꿔 업로드(Upload files) 후 Commit합니다.</p>
+        </div>
+
+        <div class="p-3 bg-indigo-50 border border-indigo-200 rounded-2xl space-y-1">
+          <span class="font-bold text-indigo-900 flex items-center gap-1.5">
+            <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center">3</span>
+            Pages 설정 켜기 (즉시 주소 생성!)
+          </span>
+          <p class="text-[11px] text-indigo-800 pl-5">저장소의 <strong>Settings ➡️ Pages ➡️ Branch: main</strong> 선택 후 Save를 누르면 <span class="font-bold text-indigo-600 underline">https://내아이디.github.io/gangwon-trip</span> 주소가 완성됩니다!</p>
+        </div>
+
+        <div class="p-2.5 bg-amber-50 rounded-2xl border border-amber-200 text-amber-900 text-[11px]">
+          📱 <strong>아이폰 꿀팁:</strong> 아내분 폰 사파리에서 접속한 뒤 <strong>[공유] ➡️ [홈 화면에 추가]</strong>를 누르면 진짜 앱 아이콘이 생성되어 터치 한 번으로 바로 열립니다.
+        </div>
+      </div>
+
+      <button onclick="closeGitHubGuideModal()" class="w-full py-2.5 bg-slate-900 text-white font-bold rounded-2xl text-xs hover:bg-black transition spring-press">
+        확인했습니다
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Comment State Management
+    let currentAuthor = 'wife';
+    let tripComments = [
+      {
+        id: 1,
+        author: 'husband',
+        authorName: '남편 🧑‍💻',
+        day: '전체 일정',
+        text: '여보, 차멀미 안 나게 춘천 거쳐서 바다 보고 평창 고원 들르는 코스로 짰어! 마음에 드는 곳이나 수정하고 싶은 곳 편하게 의견 달아줘 ❤️',
+        time: '방금 전'
+      },
+      {
+        id: 2,
+        author: 'wife',
+        authorName: '아내 👩‍🦰',
+        day: '6일차 평창',
+        text: '오 대관령 하늘목장은 강아지랑 트랙터 마차도 같이 탈 수 있네? 여기 무조건 가자! 멍푸치노도 사줘야지 🐶',
+        time: '방금 전'
+      }
+    ];
+
+    function selectAuthor(author) {
+      currentAuthor = author;
+      const btnWife = document.getElementById('btnAuthorWife');
+      const btnHusband = document.getElementById('btnAuthorHusband');
+      const btnPet = document.getElementById('btnAuthorPet');
+
+      [btnWife, btnHusband, btnPet].forEach(b => {
+        b.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 transition spring-press";
+      });
+
+      if (author === 'wife') {
+        btnWife.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-rose-500 text-white transition spring-press";
+      } else if (author === 'husband') {
+        btnHusband.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-indigo-600 text-white transition spring-press";
+      } else {
+        btnPet.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-amber-500 text-white transition spring-press";
+      }
+    }
+
+    function renderComments() {
+      const container = document.getElementById('commentsContainer');
+      container.innerHTML = '';
+
+      tripComments.forEach((c) => {
+        const isWife = c.author === 'wife';
+        const isHusband = c.author === 'husband';
+        const isPet = c.author === 'pet';
+
+        let bgStyle = "bg-rose-50/80 border-rose-200/80";
+        let badgeColor = "bg-rose-500 text-white";
+        if (isHusband) {
+          bgStyle = "bg-indigo-50/80 border-indigo-200/80";
+          badgeColor = "bg-indigo-600 text-white";
+        } else if (isPet) {
+          bgStyle = "bg-amber-50/80 border-amber-200/80";
+          badgeColor = "bg-amber-500 text-white";
+        }
+
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border ${bgStyle} space-y-1.5 transition-all`;
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeColor}">${c.authorName}</span>
+              <span class="text-[11px] font-semibold text-slate-600">[${c.day}]</span>
+            </div>
+            <span class="text-[10px] text-slate-400">${c.time}</span>
+          </div>
+          <p class="text-xs text-slate-800 leading-relaxed">${c.text}</p>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('commentHeaderBadge').innerText = tripComments.length;
+    }
+
+    function postComment() {
+      const input = document.getElementById('commentInputText');
+      const text = input.value.trim();
+      const day = document.getElementById('commentDaySelect').value;
+
+      if (!text) {
+        showToast('내용을 입력해주세요!');
+        return;
+      }
+
+      let authorName = '아내 👩‍🦰';
+      if (currentAuthor === 'husband') authorName = '남편 🧑‍💻';
+      if (currentAuthor === 'pet') authorName = '댕댕이 🐶';
+
+      const newComment = {
+        id: Date.now(),
+        author: currentAuthor,
+        authorName: authorName,
+        day: day,
+        text: text,
+        time: '방금'
+      };
+
+      tripComments.unshift(newComment);
+      input.value = '';
+      renderComments();
+      showToast('소중한 의견이 등록되었습니다! ❤️');
+
+      try {
+        localStorage.setItem('tripComments_v2', JSON.stringify(tripComments));
+      } catch (e) {}
+    }
+
+    function shareCommentsViaKakao() {
+      let text = `💌 [7박 8일 강원 여행] 아내 & 가족 코멘트 모음\n\n`;
+      tripComments.forEach(c => {
+        text += `• ${c.authorName} (${c.day}):\n  "${c.text}"\n\n`;
+      });
+      text += `👉 우리만의 여행 일정표에서 계속 의견 나누기!`;
+
+      copyToClipboard(text, '아내분의 의견 모음이 카톡 포맷으로 복사되었습니다!');
+    }
+
+    // Budget Calculator
+    let selectedVanType = 'standard';
+    const vanRates = { standard: 1950000, luxury: 2350000 };
+    const foodPlans = { economy: 480000, standard: 680000, premium: 950000 };
+    const fixedCosts = 185000 + 120000 + 120000;
+
+    function setVanType(type) {
+      selectedVanType = type;
+      const btnStd = document.getElementById('btnVanStd');
+      const btnLux = document.getElementById('btnVanLux');
+      if (type === 'standard') {
+        btnStd.className = "p-2 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 font-bold text-indigo-900 text-center transition";
+        btnLux.className = "p-2 rounded-xl border border-slate-200 bg-white font-medium text-slate-600 text-center hover:bg-slate-50 transition";
+      } else {
+        btnLux.className = "p-2 rounded-xl border-2 border-indigo-600 bg-indigo-50/60 font-bold text-indigo-900 text-center transition";
+        btnStd.className = "p-2 rounded-xl border border-slate-200 bg-white font-medium text-slate-600 text-center hover:bg-slate-50 transition";
+      }
+      updateBudgetCalc();
+    }
+
+    function updateBudgetCalc() {
+      const campNights = parseInt(document.getElementById('inputCampNights').value, 10);
+      const foodPlan = document.getElementById('selectFoodPlan').value;
+      document.getElementById('labelCampNights').innerText = `${campNights}박 (노지 ${7 - campNights}박)`;
+
+      const vanCost = vanRates[selectedVanType];
+      const campCost = campNights * 55000;
+      const foodCost = foodPlans[foodPlan];
+      const total = vanCost + campCost + foodCost + fixedCosts;
+
+      document.getElementById('calculatedTotal').innerText = total.toLocaleString();
+      document.getElementById('subVanCost').innerText = (vanCost / 10000).toFixed(0) + '만';
+      document.getElementById('subCampCost').innerText = (campCost / 10000).toFixed(0) + '만';
+      document.getElementById('subFoodCost').innerText = (foodCost / 10000).toFixed(0) + '만';
+    }
+
+    // Checklist logic
+    function handleChecklistChange() {
+      const checkboxes = document.querySelectorAll('.chk-item');
+      let count = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) count++;
+      });
+      document.getElementById('checklistCount').innerText = `${count} / ${checkboxes.length} 완료`;
+    }
+
+    // UI Helpers
+    function switchDay(day) {
+      document.querySelectorAll('.day-tab').forEach(tab => {
+        if (tab.getAttribute('data-day') === day) {
+          tab.classList.add('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+          tab.classList.remove('text-slate-600');
+        } else {
+          tab.classList.remove('bg-white', 'text-slate-900', 'shadow-sm', 'font-bold');
+          tab.classList.add('text-slate-600');
+        }
+      });
+      document.querySelectorAll('.day-card').forEach(card => {
+        if (day === 'all' || card.getAttribute('data-day-group') === day) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('-translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('-translate-y-20', 'opacity-0');
+      }, 2600);
+    }
+
+    function copyToClipboard(text, successMsg) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (e) {
+        showToast('복사에 실패했습니다.');
+      }
+      document.body.removeChild(ta);
+    }
+
+    function copyKakaoFormat() {
+      const msg = `🚐🐾 [수원발 7박 8일 강원 반려견 캠핑카 트래블]
+나 + 아내 + 우리 댕댕이 힐링 코스!
+
+📍 코스 요약:
+수원 ➡️ 춘천 ➡️ 고성·속초 ➡️ 양양·강릉 ➡️ 평창 ➡️ 원주 ➡️ 수원
+
+1일: 춘천 강아지숲 & 토담닭갈비
+2일: 고성 아야진 해변 & 백도 1열 차박
+3일: 속초 영랑호 & 칠성조선소 & 시장만찬
+4일: 양양 서피비치 & 파머스키친 버거
+5일: 강릉 순두부(애견룸) & 안목 펫존
+6일: 평창 대관령 하늘목장 & 한우 그리들
+7-8일: 원주 스톤크릭 절벽카페 & 귀환
+
+💰 총 예상비용: 약 327만원
+💌 우리 둘만의 의견 달기는 웹페이지에서 바로 가능해!`;
+      copyToClipboard(msg, '카카오톡 맞춤 요약문이 복사되었습니다!');
+    }
+
+    function openGitHubGuideModal() {
+      document.getElementById('gitHubModal').classList.remove('hidden');
+    }
+    function closeGitHubGuideModal() {
+      document.getElementById('gitHubModal').classList.add('hidden');
+    }
+    function toggleIslandDetails() {
+      showToast('🚐 현재 수원발 7박 8일 순환 루프가 준비되어 있습니다!');
+    }
+
+    window.addEventListener('load', () => {
+      try {
+        const saved = localStorage.getItem('tripComments_v2');
+        if (saved) tripComments = JSON.parse(saved);
+      } catch (e) {}
+      renderComments();
+      updateBudgetCalc();
+    });
+  </script>
+</body>
+</html>
